@@ -9,19 +9,24 @@ const DEFAULT_SETTINGS = {
 };
 
 // DOM elements
-const actionYes = document.getElementById('actionYes');
-const actionNo = document.getElementById('actionNo');
+const actionToggle = document.getElementById('actionToggle');
+const toggleDescription = document.getElementById('toggleDescription');
 const checkDontShow = document.getElementById('checkDontShow');
 const actionDelayInput = document.getElementById('actionDelay');
 const showCountdown = document.getElementById('showCountdown');
 const saveBtn = document.getElementById('saveBtn');
 const status = document.getElementById('status');
 
+// Update toggle description text
+function updateToggleDescription() {
+  toggleDescription.textContent = actionToggle.checked ? 'Stay signed in' : "Don't stay signed in";
+}
+
 // Load saved settings
 function loadSettings() {
   chrome.storage.sync.get(DEFAULT_SETTINGS, (settings) => {
-    actionYes.checked = settings.action === 'yes';
-    actionNo.checked = settings.action === 'no';
+    actionToggle.checked = settings.action === 'yes';
+    updateToggleDescription();
     checkDontShow.checked = settings.checkDontShow;
     actionDelayInput.value = settings.actionDelay;
     showCountdown.checked = settings.showCountdown;
@@ -31,7 +36,7 @@ function loadSettings() {
 // Save settings
 function saveSettings() {
   const settings = {
-    action: actionYes.checked ? 'yes' : 'no',
+    action: actionToggle.checked ? 'yes' : 'no',
     checkDontShow: checkDontShow.checked,
     actionDelay: parseInt(actionDelayInput.value, 10) || 1000,
     showCountdown: showCountdown.checked
@@ -51,6 +56,7 @@ function saveSettings() {
 }
 
 // Event listeners
+actionToggle.addEventListener('change', updateToggleDescription);
 saveBtn.addEventListener('click', saveSettings);
 
 // Allow Enter key to save
