@@ -147,6 +147,7 @@ entra-auto-confirm/
 │   │   └── messages.json  # English translations
 │   └── uk/
 │       └── messages.json  # Ukrainian translations
+├── LICENSE            # MIT License
 └── README.md          # Documentation
 ```
 
@@ -323,7 +324,9 @@ This is a personal-use extension, but contributions are welcome:
 
 ## License
 
-Free to use and modify for personal use.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 George Doubinski
 
 ---
 
