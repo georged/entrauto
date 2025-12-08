@@ -1,0 +1,78 @@
+{
+  "extName": {
+    "message": "Entra ID Auto Confirm",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Automatically handles Microsoft Entra ID 'Stay signed in?' dialog with configurable options",
+    "description": "Extension description"
+  },
+  "settingsTitle": {
+    "message": "Entra ID Auto Confirm",
+    "description": "Settings popup title"
+  },
+  "dialogActionLabel": {
+    "message": "Dialog Action",
+    "description": "Label for dialog action setting"
+  },
+  "clickNo": {
+    "message": "Click \"No\"",
+    "description": "Click No option label"
+  },
+  "clickYes": {
+    "message": "Click \"Yes\"",
+    "description": "Click Yes option label"
+  },
+  "staySignedIn": {
+    "message": "Stay signed in",
+    "description": "Description when Yes is selected"
+  },
+  "dontStaySignedIn": {
+    "message": "Don't stay signed in",
+    "description": "Description when No is selected"
+  },
+  "checkboxOptionLabel": {
+    "message": "Checkbox Option",
+    "description": "Label for checkbox option setting"
+  },
+  "checkDontShowAgain": {
+    "message": "Check \"Don't show this again\"",
+    "description": "Checkbox option label"
+  },
+  "delayLabel": {
+    "message": "Delay Before Click",
+    "description": "Label for delay setting"
+  },
+  "delayInputLabel": {
+    "message": "Wait before clicking button (ms):",
+    "description": "Delay input field label"
+  },
+  "delayHint": {
+    "message": "Default: 1000ms (1 second)",
+    "description": "Hint text for delay input"
+  },
+  "countdownLabel": {
+    "message": "Visual Countdown",
+    "description": "Label for countdown setting"
+  },
+  "showCountdownBadge": {
+    "message": "Show countdown in extension badge",
+    "description": "Countdown checkbox label"
+  },
+  "countdownHint": {
+    "message": "Displays seconds remaining in the extension icon",
+    "description": "Hint text for countdown"
+  },
+  "saveButton": {
+    "message": "Save Settings",
+    "description": "Save button text"
+  },
+  "saveSuccess": {
+    "message": "Settings saved successfully!",
+    "description": "Success message after saving"
+  },
+  "infoText": {
+    "message": "These settings control how the extension handles the \"Stay signed in?\" dialog on Microsoft Entra ID login pages.",
+    "description": "Info text at bottom of popup"
+  }
+}

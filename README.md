@@ -138,11 +138,78 @@ entra-auto-confirm/
 ├── manifest.json      # Extension configuration (Manifest V3)
 ├── background.js      # Background service worker for badge updates
 ├── content.js         # Main automation logic and dialog detection
+├── languages.json     # Multi-language dialog patterns
 ├── popup.html         # Settings UI structure
 ├── popup.js           # Settings management logic
 ├── popup.css          # Settings UI styles
+├── _locales/          # Internationalization
+│   ├── en/
+│   │   └── messages.json  # English translations
+│   └── uk/
+│       └── messages.json  # Ukrainian translations
 └── README.md          # Documentation
 ```
+
+## Multi-Language Support
+
+The extension supports multiple languages for both:
+1. **Dialog Detection** - Recognizes "Stay signed in?" dialog in different languages
+2. **UI Translation** - Settings popup displays in your browser's language
+
+### Supported Languages
+
+- **English (en)** - Default
+- **Ukrainian (uk)** - Complete support
+
+### Adding a New Language
+
+To add support for a new language (e.g., Spanish):
+
+#### 1. Add Dialog Patterns
+
+Edit `languages.json` and add the language code with patterns:
+
+```json
+{
+  "en": { ... },
+  "uk": { ... },
+  "es": {
+    "dialogText": ["Mantener la sesión iniciada", "mantener la sesión iniciada"],
+    "checkboxText": ["No volver a mostrar", "no volver a mostrar"],
+    "yesButton": ["Sí"],
+    "noButton": ["No"]
+  }
+}
+```
+
+#### 2. Add UI Translations
+
+Create `_locales/es/messages.json` with all translated strings:
+
+```json
+{
+  "extName": {
+    "message": "Entra ID Auto Confirm",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Maneja automáticamente el diálogo 'Mantener la sesión iniciada?' de Microsoft Entra ID",
+    "description": "Extension description"
+  },
+  ...
+}
+```
+
+Copy the structure from `_locales/en/messages.json` and translate all values.
+
+**That's it!** No code changes needed. The extension automatically:
+- Loads and uses the new language patterns
+- Detects the browser's language and shows the appropriate UI
+
+### Language Detection
+
+- **Dialog patterns**: Checks against ALL languages simultaneously
+- **UI language**: Uses browser's UI language (falls back to English)
 
 ## Privacy & Security
 

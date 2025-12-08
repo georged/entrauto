@@ -1,0 +1,78 @@
+{
+  "extName": {
+    "message": "Entra ID Автопідтвердження",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Автоматично обробляє діалог 'Не виходити?' Microsoft Entra ID з налаштуваннями",
+    "description": "Extension description"
+  },
+  "settingsTitle": {
+    "message": "Entra ID Автопідтвердження",
+    "description": "Settings popup title"
+  },
+  "dialogActionLabel": {
+    "message": "Дія діалогу",
+    "description": "Label for dialog action setting"
+  },
+  "clickNo": {
+    "message": "Натиснути \"Ні\"",
+    "description": "Click No option label"
+  },
+  "clickYes": {
+    "message": "Натиснути \"Так\"",
+    "description": "Click Yes option label"
+  },
+  "staySignedIn": {
+    "message": "Залишитися в системі",
+    "description": "Description when Yes is selected"
+  },
+  "dontStaySignedIn": {
+    "message": "Не залишатися в системі",
+    "description": "Description when No is selected"
+  },
+  "checkboxOptionLabel": {
+    "message": "Опція прапорця",
+    "description": "Label for checkbox option setting"
+  },
+  "checkDontShowAgain": {
+    "message": "Відзначити \"Більше не показувати\"",
+    "description": "Checkbox option label"
+  },
+  "delayLabel": {
+    "message": "Затримка перед кліком",
+    "description": "Label for delay setting"
+  },
+  "delayInputLabel": {
+    "message": "Чекати перед натисканням кнопки (мс):",
+    "description": "Delay input field label"
+  },
+  "delayHint": {
+    "message": "За замовчуванням: 1000мс (1 секунда)",
+    "description": "Hint text for delay input"
+  },
+  "countdownLabel": {
+    "message": "Візуальний зворотний відлік",
+    "description": "Label for countdown setting"
+  },
+  "showCountdownBadge": {
+    "message": "Показувати зворотний відлік у значку розширення",
+    "description": "Countdown checkbox label"
+  },
+  "countdownHint": {
+    "message": "Відображає секунди, що залишилися, в іконці розширення",
+    "description": "Hint text for countdown"
+  },
+  "saveButton": {
+    "message": "Зберегти налаштування",
+    "description": "Save button text"
+  },
+  "saveSuccess": {
+    "message": "Налаштування успішно збережено!",
+    "description": "Success message after saving"
+  },
+  "infoText": {
+    "message": "Ці налаштування контролюють, як розширення обробляє діалог \"Не виходити?\" на сторінках входу Microsoft Entra ID.",
+    "description": "Info text at bottom of popup"
+  }
+}

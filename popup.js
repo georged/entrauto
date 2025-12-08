@@ -1,5 +1,16 @@
 // Popup settings management
 
+// Initialize i18n
+function initI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    const message = chrome.i18n.getMessage(key);
+    if (message) {
+      element.textContent = message;
+    }
+  });
+}
+
 // Default settings
 const DEFAULT_SETTINGS = {
   action: 'yes', // 'yes' or 'no'
@@ -15,11 +26,12 @@ const checkDontShow = document.getElementById('checkDontShow');
 const actionDelayInput = document.getElementById('actionDelay');
 const showCountdown = document.getElementById('showCountdown');
 const saveBtn = document.getElementById('saveBtn');
-const status = document.getElementById('status');
+const statusElement = document.getElementById('status');
 
 // Update toggle description text
 function updateToggleDescription() {
-  toggleDescription.textContent = actionToggle.checked ? 'Stay signed in' : "Don't stay signed in";
+  const key = actionToggle.checked ? 'staySignedIn' : 'dontStaySignedIn';
+  toggleDescription.textContent = chrome.i18n.getMessage(key);
 }
 
 // Load saved settings
@@ -44,13 +56,13 @@ function saveSettings() {
 
   chrome.storage.sync.set(settings, () => {
     // Show success message
-    status.textContent = 'Settings saved successfully!';
-    status.className = 'status success';
+    statusElement.textContent = chrome.i18n.getMessage('saveSuccess');
+    statusElement.className = 'status success';
 
     // Clear message after 2 seconds
     setTimeout(() => {
-      status.textContent = '';
-      status.className = 'status';
+      statusElement.textContent = '';
+      statusElement.className = 'status';
     }, 2000);
   });
 }
@@ -66,5 +78,6 @@ document.addEventListener('keypress', (e) => {
   }
 });
 
-// Load settings when popup opens
+// Initialize i18n and load settings when popup opens
+initI18n();
 loadSettings();

@@ -1,0 +1,14 @@
+{
+  "en": {
+    "dialogText": ["Stay signed in", "stay signed in"],
+    "checkboxText": ["Don't show this again", "don't show this again"],
+    "yesButton": ["Yes"],
+    "noButton": ["No"]
+  },
+  "uk": {
+    "dialogText": ["Не виходити", "не виходити"],
+    "checkboxText": ["Більше не показувати", "більше не показувати"],
+    "yesButton": ["Так"],
+    "noButton": ["Ні"]
+  }
+}
