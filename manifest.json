@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Entra ID Auto Confirm",
+  "version": "1.0.0",
+  "description": "Automatically handles Microsoft Entra ID 'Stay signed in?' dialog with configurable options",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Entra ID Auto Confirm Settings"
+  },
+  "host_permissions": [
+    "https://login.microsoftonline.com/*",
+    "https://*.login.microsoftonline.com/*",
+    "https://login.microsoft.com/*",
+    "https://*.login.microsoft.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://login.microsoftonline.com/*",
+        "https://*.login.microsoftonline.com/*",
+        "https://login.microsoft.com/*",
+        "https://*.login.microsoft.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
