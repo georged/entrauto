@@ -11,6 +11,8 @@ Entra ID Auto Confirm eliminates the need to manually interact with the "Stay si
 - **Automatic Detection** - Identifies the "Stay signed in?" dialog instantly
 - **Configurable Actions** - Choose to click "Yes" or "No"
 - **Optional Checkbox** - Optionally check "Don't show this again"
+- **Adjustable Delay** - Set custom wait time before button click (0-5000ms)
+- **Visual Countdown** - Optional countdown timer displayed in extension icon badge
 - **Simple Settings UI** - Easy-to-use popup for configuration
 - **Privacy-Focused** - All processing happens locally, no data collection
 - **Universal Support** - Works on all Microsoft/Entra ID login pages
@@ -51,6 +53,7 @@ Click the extension icon in your browser toolbar to open the settings popup.
 | **Dialog Action** | Choose whether to click "Yes" (stay signed in) or "No" (don't stay signed in) | Yes |
 | **Check "Don't show this again"** | Enable to automatically check the checkbox before clicking the button | Enabled |
 | **Delay Before Click** | Time to wait (in milliseconds) before clicking the button | 1000ms (1 second) |
+| **Visual Countdown** | Display a countdown timer in the extension icon badge | Disabled |
 
 ### Example Configurations
 
@@ -58,26 +61,31 @@ Click the extension icon in your browser toolbar to open the settings popup.
 - Dialog Action: `Yes`
 - Check "Don't show this again": `Enabled`
 - Delay Before Click: `1000ms`
+- Visual Countdown: `Disabled`
 
 **Scenario 2: Never stay signed in**
 - Dialog Action: `No`
 - Check "Don't show this again": `Enabled`
 - Delay Before Click: `1000ms`
+- Visual Countdown: `Disabled`
 
-**Scenario 3: Stay signed in but show prompt next time**
+**Scenario 3: Stay signed in with visual feedback**
 - Dialog Action: `Yes`
-- Check "Don't show this again": `Disabled`
-- Delay Before Click: `1000ms`
+- Check "Don't show this again": `Enabled`
+- Delay Before Click: `2000ms`
+- Visual Countdown: `Enabled`
 
 **Scenario 4: Instant click (no delay)**
 - Dialog Action: `Yes`
 - Check "Don't show this again": `Enabled`
 - Delay Before Click: `0ms`
+- Visual Countdown: `Disabled`
 
 **Scenario 5: Longer delay for slower connections**
 - Dialog Action: `Yes`
 - Check "Don't show this again": `Enabled`
-- Delay Before Click: `2000ms`
+- Delay Before Click: `3000ms`
+- Visual Countdown: `Enabled`
 
 ## Usage
 
@@ -128,6 +136,7 @@ The extension automatically activates on the following Microsoft authentication 
 ```
 entra-auto-confirm/
 ├── manifest.json      # Extension configuration (Manifest V3)
+├── background.js      # Background service worker for badge updates
 ├── content.js         # Main automation logic and dialog detection
 ├── popup.html         # Settings UI structure
 ├── popup.js           # Settings management logic

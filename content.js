@@ -14,17 +14,78 @@
   const DEFAULT_SETTINGS = {
     action: 'yes', // 'yes' or 'no'
     checkDontShow: true,
-    actionDelay: 1000 // milliseconds
+    actionDelay: 1000, // milliseconds
+    showCountdown: false // show countdown timer on page
   };
 
   let hasRun = false;
   let startTime = Date.now();
   let observer = null;
   let settings = DEFAULT_SETTINGS;
+  let countdownInterval = null;
 
   // Logging helper
   function log(message, data = '') {
     console.log(`[Entra Auto Confirm] ${message}`, data);
+  }
+
+  // Display countdown in extension badge
+  function showCountdownTimer(seconds) {
+    try {
+      if (!settings.showCountdown) return;
+
+      let remainingSeconds = Math.ceil(seconds / 1000);
+
+      // Update badge immediately
+      chrome.runtime.sendMessage({
+        type: 'updateBadge',
+        text: remainingSeconds.toString()
+      });
+
+      log('Countdown timer displayed in badge');
+
+      // Update countdown every second
+      countdownInterval = setInterval(() => {
+        try {
+          remainingSeconds--;
+          if (remainingSeconds > 0) {
+            chrome.runtime.sendMessage({
+              type: 'updateBadge',
+              text: remainingSeconds.toString()
+            });
+          } else {
+            // Clear badge
+            chrome.runtime.sendMessage({
+              type: 'clearBadge'
+            });
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+          }
+        } catch (error) {
+          log('Error in countdown interval:', error);
+          clearInterval(countdownInterval);
+          countdownInterval = null;
+        }
+      }, 1000);
+    } catch (error) {
+      log('Error in showCountdownTimer:', error);
+    }
+  }
+
+  // Clean up countdown
+  function cleanupCountdown() {
+    if (countdownInterval) {
+      clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+    // Clear badge
+    try {
+      chrome.runtime.sendMessage({
+        type: 'clearBadge'
+      });
+    } catch (error) {
+      log('Error clearing badge:', error);
+    }
   }
 
   // Find the "Stay signed in?" dialog
@@ -95,20 +156,21 @@
 
   // Main automation function
   function handleDialog() {
-    if (hasRun) return;
+    try {
+      if (hasRun) return;
 
-    // Check timeout
-    if (Date.now() - startTime > CONFIG.maxWaitTime) {
-      log('Timeout reached, stopping observation');
-      cleanup();
-      return;
-    }
+      // Check timeout
+      if (Date.now() - startTime > CONFIG.maxWaitTime) {
+        log('Timeout reached, stopping observation');
+        cleanup();
+        return;
+      }
 
-    const dialog = findDialog();
-    if (!dialog) return;
+      const dialog = findDialog();
+      if (!dialog) return;
 
-    log('Dialog detected');
-    log('Settings:', settings);
+      log('Dialog detected');
+      log('Settings:', settings);
 
     const checkbox = findCheckbox(dialog);
     const targetButton = settings.action === 'yes' ? findYesButton(dialog) : findNoButton(dialog);
@@ -133,13 +195,21 @@
       log('Checkbox setting disabled, skipping');
     }
 
-    // Click target button after configured delay
-    setTimeout(() => {
-      targetButton.click();
-      log(`${buttonName} button clicked`);
-      hasRun = true;
+    // Show countdown if enabled
+    showCountdownTimer(settings.actionDelay);
+
+      // Click target button after configured delay
+      setTimeout(() => {
+        targetButton.click();
+        log(`${buttonName} button clicked`);
+        hasRun = true;
+        cleanup();
+      }, settings.actionDelay);
+    } catch (error) {
+      log('Error in handleDialog:', error);
+      // Clean up on error to prevent infinite loops
       cleanup();
-    }, settings.actionDelay);
+    }
   }
 
   // Clean up observer
@@ -149,32 +219,45 @@
       observer = null;
       log('Observer disconnected');
     }
+    cleanupCountdown();
   }
 
   // Initialize
   function init() {
-    log('Extension initialized');
+    try {
+      log('Extension initialized');
 
-    // Load settings from storage
-    chrome.storage.sync.get(DEFAULT_SETTINGS, (loadedSettings) => {
-      settings = loadedSettings;
-      log('Settings loaded:', settings);
+      // Load settings from storage
+      chrome.storage.sync.get(DEFAULT_SETTINGS, (loadedSettings) => {
+        settings = loadedSettings;
+        log('Settings loaded:', settings);
 
-      // Check immediately on page load
-      handleDialog();
-
-      // Set up MutationObserver to watch for dialog appearing
-      observer = new MutationObserver(() => {
+        // Check immediately on page load
         handleDialog();
-      });
 
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
+        // Set up MutationObserver to watch for dialog appearing
+        if (document.body) {
+          observer = new MutationObserver(() => {
+            try {
+              handleDialog();
+            } catch (error) {
+              log('Error in MutationObserver callback:', error);
+            }
+          });
 
-      log('Watching for dialog...');
-    });
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+
+          log('Watching for dialog...');
+        } else {
+          log('document.body not available, cannot set up observer');
+        }
+      });
+    } catch (error) {
+      log('Error in init:', error);
+    }
   }
 
   // Start when DOM is ready

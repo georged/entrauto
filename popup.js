@@ -4,7 +4,8 @@
 const DEFAULT_SETTINGS = {
   action: 'yes', // 'yes' or 'no'
   checkDontShow: true,
-  actionDelay: 1000 // milliseconds
+  actionDelay: 1000, // milliseconds
+  showCountdown: false // show countdown timer on page
 };
 
 // DOM elements
@@ -12,6 +13,7 @@ const actionYes = document.getElementById('actionYes');
 const actionNo = document.getElementById('actionNo');
 const checkDontShow = document.getElementById('checkDontShow');
 const actionDelayInput = document.getElementById('actionDelay');
+const showCountdown = document.getElementById('showCountdown');
 const saveBtn = document.getElementById('saveBtn');
 const status = document.getElementById('status');
 
@@ -22,6 +24,7 @@ function loadSettings() {
     actionNo.checked = settings.action === 'no';
     checkDontShow.checked = settings.checkDontShow;
     actionDelayInput.value = settings.actionDelay;
+    showCountdown.checked = settings.showCountdown;
   });
 }
 
@@ -30,7 +33,8 @@ function saveSettings() {
   const settings = {
     action: actionYes.checked ? 'yes' : 'no',
     checkDontShow: checkDontShow.checked,
-    actionDelay: parseInt(actionDelayInput.value, 10) || 1000
+    actionDelay: parseInt(actionDelayInput.value, 10) || 1000,
+    showCountdown: showCountdown.checked
   };
 
   chrome.storage.sync.set(settings, () => {
