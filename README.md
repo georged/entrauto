@@ -4,7 +4,11 @@
 
 ## Overview
 
-Entra ID Auto Confirm eliminates the need to manually interact with the "Stay signed in?" prompt that appears after authenticating with Microsoft Entra ID (formerly Azure AD). The extension detects the dialog automatically and performs your preferred action based on your settings.
+Entra ID Auto Confirm eliminates the need to manually interact with the "Stay signed in?" prompt that appears after authenticating with Microsoft Entra ID (formerly Azure AD). 
+
+<img width="434" height="343" alt="image" src="https://github.com/user-attachments/assets/7cd0b30d-3e22-461a-b801-a5ba8af5b24b" />
+
+The extension detects the dialog automatically and performs your preferred action based on your settings.
 
 ## Features
 
