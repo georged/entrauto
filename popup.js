@@ -47,10 +47,18 @@ function loadSettings() {
 
 // Save settings
 function saveSettings() {
+  // Parse delay value, default to 1000 if invalid, convert negative to 0
+  let delay = parseInt(actionDelayInput.value, 10);
+  if (isNaN(delay)) {
+    delay = 1000;
+  } else if (delay < 0) {
+    delay = 0;
+  }
+
   const settings = {
     action: actionToggle.checked ? 'yes' : 'no',
     checkDontShow: checkDontShow.checked,
-    actionDelay: parseInt(actionDelayInput.value, 10) || 1000,
+    actionDelay: delay,
     showCountdown: showCountdown.checked
   };
 
