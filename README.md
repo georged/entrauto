@@ -25,7 +25,7 @@ Entra ID Auto Confirm eliminates the need to manually interact with the "Stay si
 
 ### Steps
 
-1. **Download or clone this repository** to your local machine
+1. **Download and unzip** [latest release](https://github.com/georged/entrauto/releases/latest) or **clone this repository** to your local machine
 
 2. **Open your browser's extension page:**
    - Chrome: `chrome://extensions`
